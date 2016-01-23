@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+</head>
+<body>
+{% if form.errors %}
+    <p>ID나 비밀번호가 일치하지 않습니다.</p>
+{% endif %}
+<div>
+    <form name="LoginForm" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>권한이 없습니다.</p>
+            {% else %}
+                <p>로그인을 해주세요</p>
+            {% endif %}
+        {% endif %}
+    <!--
+        <label for="username">학번</label>
+        <input type="text" id="username" name="uesrname"/><br/>
+        <label for="password">비밀번호</label>
+        <input type="password" name="password" id="password"/><br/>
+    -->
+        {{ form.as_p }}
+        <input type="submit"/>
+    </form>
+</div>
+</body>
+</html>
