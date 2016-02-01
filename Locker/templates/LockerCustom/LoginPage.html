@@ -9,7 +9,7 @@
     <p>ID나 비밀번호가 일치하지 않습니다.</p>
 {% endif %}
 <div>
-    <form name="LoginForm" method="POST" action="{% url 'login' %}">
+    <form name="LoginForm" method="POST" action="">
         {% csrf_token %}
         {% if next %}
             {% if user.is_authenticated %}

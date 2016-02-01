@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>사물함 선택</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% csrf_token %}
+{% for item in locker %}
+    <!--<a id='locker' href="/LockerDetail/{{ item.id }}">{{ item }}</a>-->
+    <span id="{{ item.id }}" class="locker">{{ item }}</span>
+{% endfor %}
+<br/>
+<div id="locker_detail">
+    사물함 detail출력
+</div>
+<script>
+    $.ajaxSetup({data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    }});
+
+    $(".locker").click(function(){
+        $.ajax({
+            type:'post',
+            //url:'/LockerDetail/ajax/'+$('.locker').attr('id'),
+            url:'',
+            dataType:'html',
+            data: {
+                locker: $('.locker').attr('id'),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success:function(data){
+                $("#locker_detail").html(data)
+            }
+        })
+    });
+</script>
+</body>
+</html>

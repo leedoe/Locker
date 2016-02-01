@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필 페이지</title>
+</head>
+<body>
+<a href="{% url 'logout' %}">로그아웃</a>
+<br/>
+{{ user.first_name }}, {{ user.username }}, {{ fee }}, {{ user.department }}, {{ user_locker }}<br/>
+{% if user.fee_check %}
+<a href="{% url 'locker_choice' %}">사물함 예약</a>
+{% endif %}
+</body>
+</html>

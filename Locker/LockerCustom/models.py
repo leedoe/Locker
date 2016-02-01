@@ -3,11 +3,13 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 # Create your models here.
+# 학부 정보
 class Department(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
         return self.name
+
 
 """
 class UserInfo(models.Model):
@@ -26,6 +28,7 @@ class UserInfo(models.Model):
 """
 
 
+# 유저 정보
 class UserInfo(AbstractUser):
     FEE = (
         (0, '회비 미납'),
@@ -39,6 +42,7 @@ class UserInfo(AbstractUser):
         return self.username
 
 
+# 건물 정보
 class Building(models.Model):
     name = models.CharField(max_length=45)
 
@@ -46,6 +50,7 @@ class Building(models.Model):
         return self.name
 
 
+# 사물함 정보
 class Locker(models.Model):
     building = models.ForeignKey(Building)
     floor = models.CharField(max_length=5)
@@ -58,6 +63,7 @@ class Locker(models.Model):
         return str(self.building) + " " + str(self.floor) + "층 " + self.section
 
 
+# 사물함 세부 정보
 class LockerDetail(models.Model):
     CHECK = (
         (0, '예약 불가'),
@@ -65,10 +71,17 @@ class LockerDetail(models.Model):
     )
 
     locker_number = models.ForeignKey(Locker)
+    locker_detail_number = models.IntegerField(default=0)
     row = models.IntegerField()
     column = models.IntegerField()
     check = models.IntegerField(choices=CHECK)
     user_id = models.ForeignKey(UserInfo, null=True, blank=True)
 
     def __str__(self):
-        return str(self.locker_number) + " " + str(self.row) + ", " + str(self.column)
+        return str(self.locker_number) + " " + str(self.locker_detail_number)
+
+    def get_check(self):
+        return self.check
+
+    def get_id(self):
+        return self.id
