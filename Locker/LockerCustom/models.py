@@ -85,3 +85,12 @@ class LockerDetail(models.Model):
 
     def get_id(self):
         return self.id
+
+
+class registerTime(models.Model):
+    department = models.OneToOneField(Department)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.department.__str__()

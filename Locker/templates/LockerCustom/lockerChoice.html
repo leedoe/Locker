@@ -1,3 +1,9 @@
+{% if register %}
+    <script>
+        alert('정상적으로 예약 되었습니다.');
+        location.href='../Profile'
+    </script>
+{% endif %}
 <!DOCTYPE html>
 <html lang="ko-kr">
 <head>
@@ -40,6 +46,11 @@
             }
         })
     });
+    {% if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+    {% endif %}
 </script>
 </body>
 </html>

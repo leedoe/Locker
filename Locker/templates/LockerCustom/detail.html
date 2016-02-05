@@ -28,7 +28,7 @@
         {% for column in locker.cNum|get_range %}
             <td>
             {% with count=forloop.parentloop.counter0|multiply:locker.cNum|add:forloop.counter0 %}
-            {{ count }}<br/>
+            {{ count|add:1 }}<br/>
                 {% if detail|access_by_index:count|get_check_value %}
                 <button type="submit" value="{{ detail|access_by_index:count|get_id_value }}" name="detail_id">예약가능</button>
                 {% else %}
@@ -44,6 +44,7 @@
 </form>
 </table>
 </div>
+<!--
 <script>
     $.ajaxSetup({data: {
         csrfmiddlewaretoken: '{{ csrf_token }}'
@@ -64,6 +65,6 @@
             }
         })
     });
-</script>
+</script>-->
 </body>
 </html>

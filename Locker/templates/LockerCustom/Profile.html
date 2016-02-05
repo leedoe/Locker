@@ -7,9 +7,20 @@
 <body>
 <a href="{% url 'logout' %}">로그아웃</a>
 <br/>
-{{ user.first_name }}, {{ user.username }}, {{ fee }}, {{ user.department }}, {{ user_locker }}<br/>
+{{ user.first_name }}, {{ user.username }}, {{ fee }}, {{ user.department }}{% if user_locker %}, {{ user_locker }} {% endif %}<br/>
 {% if user.fee_check %}
 <a href="{% url 'locker_choice' %}">사물함 예약</a>
 {% endif %}
+{% if user_locker %}
+    <form method="post" action="">
+    {% csrf_token %}
+    <input type="hidden" value="{{ user.id }}" name="user_id"/>
+    <button type="submit">예약 취소</button>
+    </form>
+{% endif %}
+<br/>
+{% for t in time %}
+    {{ t.department }} : {{ t.start_time }} ~ {{ t.end_time }}<br/>
+{% endfor %}
 </body>
 </html>
