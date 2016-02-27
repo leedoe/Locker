@@ -11,23 +11,6 @@ class Department(models.Model):
         return self.name
 
 
-"""
-class UserInfo(models.Model):
-    FEE = (
-        (0, '회비 미납'),
-        (1, '회비 납부'),
-    )
-
-    user_id = models.CharField(max_length=10)
-    birth = models.CharField(max_length=12)
-    fee_check = models.IntegerField(choices=FEE)
-    department = models.ForeignKey(Department)
-
-    def __str__(self):
-        return self.user_id
-"""
-
-
 # 유저 정보
 class UserInfo(AbstractUser):
     FEE = (
@@ -87,10 +70,18 @@ class LockerDetail(models.Model):
         return self.id
 
 
-class registerTime(models.Model):
+class RegisterTime(models.Model):
     department = models.OneToOneField(Department)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.department.__str__()
+
+
+class ExcelPath(models.Model):
+    department = models.OneToOneField(Department)
+    excelpath = models.FileField(upload_to='excel/')
 
     def __str__(self):
         return self.department.__str__()

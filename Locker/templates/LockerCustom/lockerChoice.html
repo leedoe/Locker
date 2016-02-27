@@ -1,44 +1,87 @@
-{% if register %}
-    <script>
-        alert('정상적으로 예약 되었습니다.');
-        location.href='../Profile'
-    </script>
-{% endif %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="ko-kr">
 <head>
-    <meta charset="UTF-8">
-    <title>사물함 선택</title>
+    <meta charset = "utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <title>SSU : Locker Request System 2.0 of Soongsil</title>
+
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <!-- bootstrap -->
+    <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    -->
+    <link rel="stylesheet" href="{% static "css/locker.css" %}">
+    <link rel="shortcut icon" href="{% static "img/favicon.ICO" %}" type="image/x-icon">
 </head>
 <body>
+<!--
 {% csrf_token %}
+<ul>
+
 {% for item in locker %}
-    <!--<a id='locker' href="/LockerDetail/{{ item.id }}">{{ item }}</a>-->
-    <span id="{{ item.id }}" class="locker">{{ item }}</span>
+    //<a id='locker' href="/LockerDetail/{{ item.id }}">{{ item }}</a>
+    <li><span id="{{ item.id }}" class="locker">{{ item }}</span></li>
 {% endfor %}
+<div id="locker_detail"></div>
+</ul>
 <br/>
-<div id="locker_detail">
-    사물함 detail출력
-</div>
+-->
+
+    <div id="wrapper">
+
+        <div id="top">
+            <div id="img"></div>
+            <p class="main_p">Locker Request System 2.0 of Soongsil University IT College</p>
+            <p class="title">
+            숭실대학교 사물함 신청 시스템
+            </p>
+        </div>
+
+        <div class="login-box">
+            <div id="lb_header">
+                <p>사물함 신청 </p>
+            </div>
+
+            <div class="login">
+                <div class="left_sec">
+                    <ul>
+                    {% for item in locker %}
+                        <li><span id="{{ item.id }}" class="locker">{{ item }}</span></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div id="locker_detail" class="right_sec">
+
+                </div>
+            </div>
+        </div>
+
+    <!--
+    <div id="info">
+    <p class="info">&copy; Soongsil University All Rights Reserved.</p>
+    </div>
+    -->
+    </div>
 <script>
     $.ajaxSetup({data: {
         csrfmiddlewaretoken: '{{ csrf_token }}'
     }});
 
-    $(".locker").click(function(){
+    $(".locker").click(function(e){
         $.ajax({
             type:'post',
             //url:'/LockerDetail/ajax/'+$('.locker').attr('id'),
             url:'',
             dataType:'html',
             data: {
-                locker: $('.locker').attr('id'),
+                //locker: $('.locker').attr('id'),
+                locker: e.target.getAttribute('id'),
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
             success:function(data){
@@ -49,6 +92,7 @@
     {% if messages %}
         {% for message in messages %}
             alert('{{ message }}');
+            window.location.replace('/Profile');
         {% endfor %}
     {% endif %}
 </script>

@@ -1,15 +1,82 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="ko-kr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>프로필 페이지</title>
+    <meta charset = "utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <title>SSU : Locker Request System 2.0 of Soongsil</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="{% static "css/my-page.css" %}">
+    <link rel="shortcut icon" href={% static "img/favicon.ICO" %} type="image/x-icon">
 </head>
 <body>
+
+        <body>
+
+        <div id="wrapper">
+
+            <div id="top">
+                <div id="img"></div>
+                <p class="main_p">Locker Request System 2.0 of Soongsil University IT College</p>
+                <p class="title">
+                         숭실대학교 사물함 신청 시스템
+                        </p>
+            </div>
+
+            <div class="login-box">
+                <div id="lb_header">
+                    <p>사용자 정보</p>
+                </div>
+                <div class="login">
+                    <div id="space"></div>
+
+                    <div class="u-form-group">
+                        {% if user.fee_check %}
+                        <form class="sub1_form" method="get" action="{% url 'locker_choice' %}">
+                            <button class="sub_button1">사물함 예약 </button>
+                        </form>
+                        {% endif %}
+                        {% if user_locker %}
+                        <form class="sub1_form" method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ user.id }}" name="user_id"/>
+                            <button class="sub_button2">예약 취소 </button>
+                        </form>
+                        {% endif %}
+                        <form method="get" action="{% url 'logout' %}">
+                            <button class="lo_button">로그아웃 </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+           <!--
+            <div id="info">
+                <p class="info">&copy; Soongsil University All Rights Reserved.</p>
+            </div>
+-->
+        </div>
+
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        {% endif %}
+    </script>
+    </body>
+
+</html>
+<!--
 <a href="{% url 'logout' %}">로그아웃</a>
 <br/>
 {{ user.first_name }}, {{ user.username }}, {{ fee }}, {{ user.department }}{% if user_locker %}, {{ user_locker }} {% endif %}<br/>
 {% if user.fee_check %}
-<a href="{% url 'locker_choice' %}">사물함 예약</a>
+<a href="{% url 'locker_choice' %}" id="bookingBtn">사물함 예약</a>
 {% endif %}
 {% if user_locker %}
     <form method="post" action="">
@@ -19,8 +86,20 @@
     </form>
 {% endif %}
 <br/>
-{% for t in time %}
-    {{ t.department }} : {{ t.start_time }} ~ {{ t.end_time }}<br/>
-{% endfor %}
+<ul>
+    {% for t in time %}
+        <li>
+            {{ t.department }} : {{ t.start_time }} ~ {{ t.end_time }}
+        </li>
+    {% endfor %}
+</ul>
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            alert('{{ message }}');
+        {% endfor %}
+    {% endif %}
+</script>
 </body>
 </html>
+-->
