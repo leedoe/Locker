@@ -1,0 +1,154 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Nanum Gothic';
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(217,217,217,0.3);
+}
+
+header {
+	position: fixed;
+	background-color: #FFFFFF;
+    top:0;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+	border-bottom: 3px solid rgb(240,240,240);
+    -webkit-box-shadow:0px 1px 2px 0px rgba(50,50,50,0.3);
+    -moz-box-shadow:0px 1px 2px 0px rgba(50,50,50,0.3);
+    -ms-box-shadow:0px 1px 2px 0px rgba(50,50,50,0.3);
+    -o-box-shadow:0px 1px 2px 0px rgba(50,50,50,0.3);
+    box-shadow:0px 1px 2px 0px rgba(50,50,50,0.3);
+}
+
+.login-box{
+    position:relative;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 500px;
+    height: 350px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    -ms-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    -o-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+}
+
+#top{
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 10px;
+}
+
+#img{
+    display: block;
+    width: 140px;
+    height: 65px;
+    background-image: url("../img/soongsil.png");
+    background-size: 140px 65px;
+    margin: 0px auto;
+    margin-bottom: 10px;
+}
+
+.main_p, .title, .info{
+    text-align: center;
+    text-decoration: none;
+    color: rgb(50,50,50);
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.main_p{
+    font-size: 19px;
+    padding-bottom: 3px;
+}
+
+.title{
+    font-size: 15px;
+}
+
+.info{
+    font-size: 12px;
+}
+
+.login{
+    padding-top: 20px;
+    position:relative;
+    float: left;
+    width: 100%;
+    height:auto;
+    margin-top: 25px;
+    text-align:center;
+}
+
+.u-form-group{
+    width:100%;
+    margin-bottom: 10px;
+}
+
+#space{
+    height:50px;
+}
+
+#lb_header{
+    margin-left: 30px;
+    margin-right: 30px;
+    height:40px;
+    border-bottom: 1px dotted rgb(150,150,150);
+}
+
+#lb_header p{
+    padding-top: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    color: rgb(100,100,100);
+}
+
+#info{
+    padding-top: 30px;
+}
+
+.u-form-group input[type="text"], .u-form-group input[type="password"]{
+    width: 69%;
+    height:45px;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 0 10px;
+    border-radius: 15px;
+    color: #333;
+    font-size:0.8rem;
+}
+
+.u-form-group input:focus{
+    border-color: #485767;
+}
+
+.u-form-group button{
+    width:73%;
+    height:45px;
+    background-color: #485767;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 13px 0;
+    border-radius: 15px;
+    text-transform: uppercase;
+}

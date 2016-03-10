@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+import os
 
 
 # Create your models here.
@@ -9,23 +10,6 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
-
-
-"""
-class UserInfo(models.Model):
-    FEE = (
-        (0, '회비 미납'),
-        (1, '회비 납부'),
-    )
-
-    user_id = models.CharField(max_length=10)
-    birth = models.CharField(max_length=12)
-    fee_check = models.IntegerField(choices=FEE)
-    department = models.ForeignKey(Department)
-
-    def __str__(self):
-        return self.user_id
-"""
 
 
 # 유저 정보
@@ -58,6 +42,8 @@ class Locker(models.Model):
     rNum = models.IntegerField()
     cNum = models.IntegerField()
     manager = models.ForeignKey(Department)
+    map = models.ImageField(upload_to='media/', null=True)
+    start_number = models.IntegerField()
 
     def __str__(self):
         return str(self.building) + " " + str(self.floor) + "층 " + self.section
@@ -87,10 +73,18 @@ class LockerDetail(models.Model):
         return self.id
 
 
-class registerTime(models.Model):
+class RegisterTime(models.Model):
     department = models.OneToOneField(Department)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.department.__str__()
+
+
+class ExcelPath(models.Model):
+    department = models.OneToOneField(Department)
+    excelpath = models.FileField(upload_to='excel/')
 
     def __str__(self):
         return self.department.__str__()

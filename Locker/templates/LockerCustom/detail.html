@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>사물함 신청</title>
-    <!-- jQuery -->
-    <script src="../jQuery/jquery-2.2.0.min.js"></script>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-</head>
-<body>
+<!-- jQuery -->
+<!--<script src="../jQuery/jquery-2.2.0.min.js"></script>-->
+<!-- bootstrap -->
+<!--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+-->
+
 {% load range_tag %}
 {% if messages %}
     {% for message in messages %}
@@ -19,52 +16,14 @@
 
 <div>
 <h1>{{ locker }}</h1>
-{{ test }}
-<table border="1">
-<form method="POST" action="">
-{% csrf_token %}
-    {% for row in locker.rNum|get_range %}
-        <tr>
-        {% for column in locker.cNum|get_range %}
-            <td>
-            {% with count=forloop.parentloop.counter0|multiply:locker.cNum|add:forloop.counter0 %}
-            {{ count|add:1 }}<br/>
-                {% if detail|access_by_index:count|get_check_value %}
-                <button type="submit" value="{{ detail|access_by_index:count|get_id_value }}" name="detail_id">예약가능</button>
-                {% else %}
-                <!--예약 불가-->
-                <button type="submit" value="{{ detail|access_by_index:count|get_id_value }}" name="detail_id">예약불가</button>
-            {% endif %}
-            {% endwith %}
-            </td>
-        {% endfor %}
-        </tr>
-    {% endfor %}
-<input type="hidden" name="locker" value="{{ locker.id }}"/>
-</form>
-</table>
-</div>
-<!--
-<script>
-    $.ajaxSetup({data: {
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-    }});
 
-    $(".locker").click(function(){
-        $.ajax({
-            type:'post',
-            //url:'/LockerDetail/ajax/'+$('.locker').attr('id'),
-            url:'',
-            dataType:'html',
-            data: {
-                locker: $('.locker').attr('id'),
-                csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-            success:function(data){
-                $("#locker_detail").html(data)
-            }
-        })
-    });
-</script>-->
-</body>
-</html>
+<form class="locker_form" method="POST" action="">
+<table class="locker" border="1">
+{% csrf_token %}
+{% autoescape off %}
+{{ ldf.parse_html }}
+{% endautoescape %}
+<input type="hidden" name="locker" value="{{ locker.id }}"/>
+</table>
+</form>
+</div>
