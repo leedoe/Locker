@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+import newrelic.agent
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Locker.settings")
 
+newrelic.agent.initialize('/home/ssulocker/django_project/ssuitcabin/Locker/Locker/newrelic.ini')
 application = get_wsgi_application()
+application = newrelic.agent.wsgi_application()(application)
+

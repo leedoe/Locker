@@ -68,6 +68,7 @@ class LockerForm(forms.ModelForm):
 
 class LockerAdmin(admin.ModelAdmin):
     form = LockerForm
+    list_filter = ('manager', )
     list_display = ('__str__', 'manager')
 
     # Locker를 생성할 때 LockerDetail을 생성
@@ -82,7 +83,17 @@ class LockerAdmin(admin.ModelAdmin):
         for j in range(1, obj.cNum + 1):
             for i in range(1, obj.rNum + 1):
                 detail_number = (i - 1) + obj.rNum * (j - 1) + obj.start_number
-                LockerDetail(locker_number=obj, locker_detail_number=detail_number, row=i, column=j, check=1).save()
+                try:
+                    temp = LockerDetail.objects.get(locker_number=obj, row=i, column=j)
+                    temp.locker_detail_number = detail_number
+                    temp.save()
+                    #print("try")
+                    #print(temp)
+                except LockerDetail.DoesNotExist:
+                    LockerDetail(locker_number=obj, locker_detail_number=detail_number, row=i, column=j, check=1).save()
+                    #print("except")
+
+
 
     # Locker를 지울 때 Locker와 연결된 LockerDetail을 모두 삭제
     def delete_model(self, request, obj):
@@ -99,7 +110,13 @@ class Register_Time(admin.ModelAdmin):
 
 class LockerDetail_adminClass(admin.ModelAdmin):
     list_display = ('__str__', 'check', 'user_id')
-    list_filter = ('locker_number', )
+    list_filter = ('locker_number', 'locker_number__manager',)
+    ordering = ['locker_number']
+    #raw_in_admin=('Locker',)
+    actions = ['clear']
+    def clear(modeladmin, request, queryset):
+        queryset.update(check=1, user_id=None)
+    clear.short_description='사물함 초기화'
 
     class Meta:
         model = LockerDetail
@@ -138,7 +155,7 @@ class ExcelPath_adminClass(admin.ModelAdmin):
                     user.fee_check = FEE_CHECK
                     user.save()
                 except:
-                    user = UserInfo(username=str(USERNAME), first_name=NAME, fee_check=0, department=DEPARTMENT)
+                    user = UserInfo(username=str(USERNAME), first_name=NAME, fee_check=FEE_CHECK, department=DEPARTMENT)
                     user.set_password(PASSWORD)
                     user.save()
 

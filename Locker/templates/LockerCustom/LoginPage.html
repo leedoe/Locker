@@ -8,6 +8,8 @@
         <title>SSU : Locker Request System 2.0 of Soongsil</title>
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <!-- bootstrap
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -52,10 +54,33 @@
             </form>
         </div>
 
+		<!--
         <div id="info">
             <p class="info">&copy; Soongsil University All rights reserved.</p>
         </div>
+		-->
     </div>
+
+	<div id="dialog" title="공지사항">
+		<p>
+		2016년도 2학기 IT대학 사물함 신청 시간 안내<br><br>
+        미디어학부 : 10월 4일, 6일, 7일 / 오후 08:00 ~ 오후 10:00<br><br>
+	    ==============================<br><br>
+        ID : 학번<br>
+        PW : 010을 뺀 8자리 숫자<br><br>
+
+        ex)<br>
+        ID : 20160000<br>
+        PW : 45671234<br><br>
+
+        미디어학부 회장 연락처 : 010-8565-4614<br><br>
+        학생회비 납부여부와 관련된 문의만 부탁드립니다.<br>
+        동시접속인원이 많기 때문에 서버 터짐 현상은 정상입니다.<br> 해당 사항과 관련된 문의는 받지 않습니다.<br>
+	<br>	서버 시간이 표준시간보다 3분정도 늦습니다. 양해 부탁드립니다.
+	
+	
+		</p>
+	</div>
     <!--
         {% if form.errors %}
             <p>ID나 비밀번호가 일치하지 않습니다.</p>
@@ -75,5 +100,22 @@
             </form>
         </div>
     -->
+	<script>
+        $("#dialog").dialog({
+			minWidth: 600,
+			position: {my: "left top", at: "left top"}
+		});
+    </script>
+	<!--구글 애널리틱스-->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-71901644-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
     </body>
 </html>

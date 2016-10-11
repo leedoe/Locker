@@ -56,8 +56,9 @@ def locker_choice(request):
         RT = RegisterTime.objects.get(department=user.department)
 
         if not (timezone.now() >= RT.start_time and timezone.now() <= RT.end_time):
-            messages.error(request, "예약 가능한 시간이 아닙니다")
-            return redirect('profile')
+            if user.username != 'com':
+                messages.error(request, "예약 가능한 시간이 아닙니다")
+                return redirect('profile')
 
         if user.fee_check is 0:
             fee = '회비 미납'
@@ -66,7 +67,7 @@ def locker_choice(request):
     else:
         return redirect('/')
 
-    locker = Locker.objects.filter(manager=user.department_id).order_by('section').order_by('floor')
+    locker = Locker.objects.filter(manager=user.department_id).order_by('floor', 'section')
 
     #ajax 사물함 보여주기
     if request.is_ajax():

@@ -34,6 +34,9 @@
 </ul>
 <br/>
 -->
+	<div class='wrap-loading dn'>
+		<div><img src="{% static "img/ajax-loader.gif" %}"></div>
+	</div>
 
     <div id="wrapper">
 
@@ -88,14 +91,19 @@
             },
             success:function(data){
                 $("#locker_detail").html(data)
-            }
+            },beforeSend:function(){
+				$('.wrap-loading').removeClass('dn');
+			}
+			,complete:function(){
+				$('.wrap-loading').addClass('dn');
+			} 
         })
     });
 
     {% for item in locker %}
         $("#{{ item.id }}").tooltip({
             items: 'span',
-            content: '<Img src="{{ item.map.url }}" width=300/>'
+            content: '<Img src="{{ item.map.url }}" width=700/>'
         });
     {% endfor %}
 
@@ -106,6 +114,17 @@
             window.location.replace('/Profile');
         {% endfor %}
     {% endif %}
+</script>
+<!--구글 애널리틱스-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71901644-2', 'auto');
+  ga('send', 'pageview');
+
 </script>
 </body>
 </html>
